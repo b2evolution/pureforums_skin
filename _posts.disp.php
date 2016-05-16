@@ -9,34 +9,24 @@
  *
  * b2evolution - {@link http://b2evolution.net/}
  * Released under GNU GPL License - {@link http://b2evolution.net/about/gnu-gpl-license}
- * @copyright (c)2003-2015 by Francois Planque - {@link http://fplanque.com/}
+ * @copyright (c)2003-2016 by Francois Planque - {@link http://fplanque.com/}
  *
  * @package evoskins
  * @subpackage pureforums
  */
 if( !defined('EVO_MAIN_INIT') ) die( 'Please, do not access this page directly.' );
 
-global $number_of_posts_in_cat, $cat;
+global $number_of_posts_in_cat, $cat, $legend_icons;
+
+if( ! is_array( $legend_icons ) )
+{ // Init this array only first time
+	$legend_icons = array();
+}
 
 if( $cat > 0 )
 {
 	$ChapterCache = & get_ChapterCache();
 	$current_Chapter = & $ChapterCache->get_by_ID( $cat, false, false );
-
-	// Init MainList
-	$page = param( 'paged', 'integer', 1 );
-	$MainList = new ItemList2( $Blog, $Blog->get_timestamp_min(), $Blog->get_timestamp_max(), $Blog->get_setting('posts_per_page') );
-	$MainList->load_from_Request();
-	$MainList->set_filters( array(
-			'cat_array' => array( $cat ), // Limit only by selected cat (exclude posts from child categories)
-			'cat_modifier' => NULL,
-			'page' => $page
-		) );
-	$MainList->query();
-	$MainList->nav_target = $cat; // set navigation target, we are always navigating through category in this skin
-
-	// Load read statuses if required
-	$MainList->load_content_read_statuses();
 
 	// Breadcrumbs
 	$Skin->display_breadcrumbs( $cat );
@@ -75,11 +65,22 @@ if( count( $chapters ) > 0 )
 			{	// Set icon for locked chapter
 				$chapter_icon = 'catBigLocked';
 				$chapter_icon_title = T_('This forum is locked: you cannot post, reply to, or edit topics.');
+				$legend_icons['forum_locked'] = 1;
 			}
 			else
 			{	// Set icon for unlocked chapter
 				$chapter_icon = 'catBig';
-				$chapter_icon_title = T_('No new posts');
+				global $disp_detail;
+				if( $disp_detail == 'posts-subcat' )
+				{
+					$chapter_icon_title = T_('Sub-forum (contains several topics)');
+					$legend_icons['forum_sub'] = 1;
+				}
+				else
+				{
+					$chapter_icon_title = T_('Forum (contains several topics)');
+					$legend_icons['forum_default'] = 1;
+				}
 			}
 ?>
 		<tr>

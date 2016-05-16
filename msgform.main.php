@@ -1,9 +1,16 @@
 <?php
 /**
- * This file is the template that displays an access denied for not logged in users
+ * This is the template that displays the message user form
  *
- * For a quick explanation of b2evo 2.0 skins, please start here:
- * {@link http://b2evolution.net/man/skin-development-primer}
+ * This file is not meant to be called directly.
+ * It is meant to be called by an include in the main.page.php template.
+ * To display a feedback, you should call a stub AND pass the right parameters
+ * For example: /blogs/index.php?disp=msgform&recipient_id=n
+ * Note: don't code this URL by hand, use the template functions to generate it!
+ *
+ * b2evolution - {@link http://b2evolution.net/}
+ * Released under GNU GPL License - {@link http://b2evolution.net/about/gnu-gpl-license}
+ * @copyright (c)2003-2016 by Francois Planque - {@link http://fplanque.com/}
  *
  * @package evoskins
  * @subpackage pureforums
@@ -17,7 +24,6 @@ if( evo_version_compare( $app_version, '4.0.0-dev' ) < 0 )
 { // Older 2.x skins work on newer 2.x b2evo versions, but newer 2.x skins may not work on older 2.x b2evo versions.
 	die( 'This skin is designed for b2evolution 4.0.0 and above. Please <a href="http://b2evolution.net/downloads/index.html">upgrade your b2evolution</a>.' );
 }
-
 
 if( $Skin->get_setting( 'width_switcher' ) )
 {
@@ -125,7 +131,6 @@ siteskin_include( '_site_body_header.inc.php' );
 			) );
 		// ----------------------------- END OF REQUEST TITLE ----------------------------
 	?>
-
 
 	<?php
 		// -------------- MAIN CONTENT TEMPLATE INCLUDED HERE (Based on $disp) --------------
