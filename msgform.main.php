@@ -18,7 +18,7 @@
 if( !defined('EVO_MAIN_INIT') ) die( 'Please, do not access this page directly.' );
 
 
-global $app_version, $disp, $Collection, $Blog, $Skin, $Settings;
+global $app_version, $disp, $Blog, $Skin, $Settings;
 
 if( evo_version_compare( $app_version, '4.0.0-dev' ) < 0 )
 { // Older 2.x skins work on newer 2.x b2evo versions, but newer 2.x skins may not work on older 2.x b2evo versions.
@@ -209,10 +209,10 @@ if( ! empty( $cookie_skin_width_value ) )
 	$cookie_skin_width_value_fixed = $cookie_skin_width_value != '1140px' ? '100%' : $cookie_skin_width_value;
 }
 
-$switcher_layout_top = is_logged_in() ? 26 : 3;
-$switcher_layout_top += $Settings->get( 'site_skins_enabled' ) ? 90 : 3; // 153 -> 106
+$switcher_layout_top = is_logged_in() ? 29 : 3;
+$switcher_layout_top += $Settings->get( 'site_skins_enabled' ) ? 103 : 3; // 153 -> 106
 
-$switcher_top = is_logged_in() ? 26 : 0;
+$switcher_top = is_logged_in() ? 29 : 0;
 $switcher_top += $Settings->get( 'site_skins_enabled' ) ? 54 : 0;
 
 $switcher_class = !$Settings->get( 'site_skins_enabled' ) ? ' fixed' : '';

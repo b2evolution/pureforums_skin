@@ -16,7 +16,7 @@
  */
 if( !defined('EVO_MAIN_INIT') ) die( 'Please, do not access this page directly.' );
 
-global $Collection, $Blog, $Session, $inc_path, $cat;
+global $Blog, $Session, $inc_path, $cat;
 global $action, $form_action;
 
 /**
@@ -185,33 +185,20 @@ $Form->begin_form( 'inskin', '', $params );
 		}
 	}
 
-
-	if( $Blog->get_setting( 'in_skin_editing_category' ) )
-	{	// If categories are allowed to update from front-office:
-		$disp_edit_categories = true;
-	}
-	else
-	{	// Don't allow to update the categories:
-		$disp_edit_categories = false;
-		if( $edited_Item->ID == 0 )
-		{	// Force to store category Id in hidden field only for new creating items:
-			$params['disp_edit_categories'] = false;
-		}
-	}
-
+	$disp_edit_categories = true;
 	if( ! $disp_params['disp_edit_categories'] )
-	{	// When categories are hidden, we store a cat_ID in the hidden input:
+	{	// When categories are hidden, we store a cat_ID in the hidden input
 		if( $edited_Item->ID > 0 )
-		{	// Get cat_ID from existing Item:
+		{	// Get cat_ID from existing Item
 			$cat = $edited_Item->get_main_Chapter()->ID;
 		}
 		else
-		{	// Forums skin get cat_ID from $_GET:
+		{	// Forums skin get cat_ID from $_GET
 			$cat = param( 'cat', 'integer', 0 );
 		}
 
 		if( $cat > 0 && $edited_Item->ID == 0 )
-		{	// Store a cat_ID:
+		{	// Store a cat_ID
 			$Form->hidden( 'post_category', $cat );
 			$Form->hidden( 'cat', $cat );
 			$disp_edit_categories = false;
@@ -371,14 +358,7 @@ $Form->end_fieldset();
 	$Form->switch_template_parts( $disp_params['edit_form_params'] );
 
 	// ################### TEXT RENDERERS ###################
-	if( $Blog->get_setting( 'in_skin_editing_renderers' ) )
-	{	// If text renderers are allowed to update from front-office:
-		$item_renderer_checkboxes = $edited_Item->get_renderer_checkboxes();
-	}
-	else
-	{	// Don't allow to update the text renderers:
-		$item_renderer_checkboxes = false;
-	}
+	$item_renderer_checkboxes = $edited_Item->get_renderer_checkboxes();
 	if( !empty( $item_renderer_checkboxes ) )
 	{
 		$Form->switch_template_parts( array(
