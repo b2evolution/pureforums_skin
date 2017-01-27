@@ -6,6 +6,11 @@ Link to skin: http://skins.b2evolution.net/pureforums-skin
 
 ### Update Log:
 
+### v6.8.6-stable
+- skin removed from default b2evolution install
+- sync with latest b2evolution base PureForums skin
+- added Gruntfile.js for SASS compilation
+
 ### v6.7.8-stable
 - sync with latest b2evolution base PureForums skin
 
